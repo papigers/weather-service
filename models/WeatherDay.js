@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var debug = require('debug')('db');
+var debug = require('debug')('WeatherDay');
 
 var schema = new mongoose.Schema({
   day: Date,
@@ -10,7 +10,8 @@ var schema = new mongoose.Schema({
 var WeatherDay = mongoose.model('WeatherDay', schema);
 
 function getWeatherDay(date, cb) {
-  var dayDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0);
+  var jsDate = new Date(+date);
+  var dayDate = new Date(jsDate.getFullYear(), jsDate.getMonth(), jsDate.getDate(), 0, 0, 0, 0);
   WeatherDay.findOne({ day: dayDate }, function(err, result) {
     if (err) {
       debug(err);

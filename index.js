@@ -16,7 +16,7 @@ var app = express();
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/api/v1', routes);
+app.use('/api/v1', api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -27,8 +27,6 @@ app.use(function(req, res, next) {
 
 // error handlers
 
-// development error handler
-// will print stacktrace
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
@@ -39,8 +37,6 @@ if (app.get('env') === 'development') {
   });
 }
 
-// production error handler
-// no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.json({
@@ -49,33 +45,13 @@ app.use(function(err, req, res, next) {
   });
 });
 
-
-/**
- * Get port from environment and store in Express.
- */
-
 var port = process.env.PORT || '3000';
 app.set('port', port);
-
-/**
- * Create HTTP server.
- */
-
 var server = http.createServer(app);
-
-/**
- * Listen on provided port, on all network interfaces.
- */
-
-
 
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
-
-/**
- * Event listener for HTTP server "error" event.
- */
 
 function onError(error) {
   if (error.syscall !== 'listen') {
@@ -110,5 +86,6 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
+  console.log('Server started');
   debug('Listening on ' + bind);
 }

@@ -28,7 +28,8 @@
   </div>
   <div class="container">
     <div class="card">
-      <svg class="chart"></svg>
+      <h4 ng-show="noData" style="position: relative; top: 100px; transform: translate(0,-50%)">No data for this date</h4>
+      <svg ng-hide="noData" class="chart" id="chart-svg"></svg>
     </div>
   </div>
   

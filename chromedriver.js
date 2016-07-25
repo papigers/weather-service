@@ -21,8 +21,6 @@ mongoose.connection.once('connected', function() {
 });
 
 var service = new chrome.ServiceBuilder()
-  .loggingTo('./log.txt')
-  .enableVerboseLogging()
   .build();
 
 var options = new chrome.Options();
@@ -35,6 +33,7 @@ function startWebDriver() {
 }
 
 function getWeather() {
+  debugwd("Getting Weather", new Date());
   driver.get('http://openweathermap.org/find?q=Jerusalem');
   driver.isElementPresent(By.className('badge-info')).then(function (present) {
     if(present){
